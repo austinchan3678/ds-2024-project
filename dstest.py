@@ -26,3 +26,6 @@ We need a chipotle, this is not the move whatsoever. I cannot be spending $18 on
 
 print("1 STARS: ")
 print(summarizer(ARTICLE, max_length=75, min_length=50, do_sample=True))
+
+
+#TESTS COMMIT
