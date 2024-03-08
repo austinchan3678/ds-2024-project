@@ -11,6 +11,8 @@
 # Import the modules
 import requests
 import json
+import numpy as np
+import pandas as pd
 
 import numpy as np
 import pandas as pd
@@ -56,6 +58,12 @@ PARAMETERS = {  'term': 'burrito',
             }
 
 
+PARAMETERS = {'term':'burrito',
+              'limit': 1,
+              'offset': 3,
+              'radius': 10000,
+              'location': 'San Diego',
+              'price': 1}
 
 # Make a request to the Yelp API
 response = requests.get(url = ENDPOINT,
@@ -67,24 +75,10 @@ business_data = response.json()
 
 # print the response
 #print(json.dumps(business_data, indent = 3))
-# print(business_data)
+print(business_data)
 
 
 
-"""
-import numpy as np
-import pandas as pd
-r_dtypes = {"stars": np.float16, 
-            "useful": np.int32, 
-            "funny": np.int32,
-            "cool": np.int32,
-           }
-
-with open("/Users/yensydney/Desktop/DSProject/yelp_dataset/copyyelp_academic_dataset_tip.json", "r") as f:
-    df = pd.read_json(f, orient="records", lines=True, dtype=r_dtypes)
-    for i in df['text']:
-        print(i)
-"""
 
 # r_dtypes = {"stars": np.float16, 
 #             "useful": np.int32, 
@@ -92,10 +86,10 @@ with open("/Users/yensydney/Desktop/DSProject/yelp_dataset/copyyelp_academic_dat
 #             "cool": np.int32,
 #            }
 
-#with open("/Users/yensydney/Desktop/DSProject/yelp_dataset/copyyelp_academic_dataset_tip.json", "r") as f:
-#    df = pd.read_json(f, orient="records", lines=True, dtype=r_dtypes)
-
-
-
-for i in business_data['businesses']:
-    print(i['name'])
+# with open("/Users/yensydney/Desktop/DSProject/yelp_dataset/copyyelp_academic_dataset_tip.json", "r") as f:
+#     df = pd.read_json(f, orient="records", lines=True, dtype=r_dtypes)
+#     for i in df['text']:
+#         print(i)
+print("test")
+for i in business_data['name']:
+    print(i)
