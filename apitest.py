@@ -11,6 +11,8 @@
 # Import the modules
 import requests
 import json
+import numpy as np
+import pandas as pd
 
 # Define a business ID
 business_id = '4AErMBEoNzbk7Q8g45kKaQ'
@@ -38,11 +40,12 @@ HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 #              'state': 'CA',
 #              'country': 'US'}
 
-PARAMETERS = {'term':'pizza',
-              'limit': 2,
+PARAMETERS = {'term':'burrito',
+              'limit': 1,
               'offset': 3,
               'radius': 10000,
-              'location': 'San Diego'}
+              'location': 'San Diego',
+              'price': 1}
 
 # Make a request to the Yelp API
 response = requests.get(url = ENDPOINT,
@@ -54,4 +57,21 @@ business_data = response.json()
 
 # print the response
 #print(json.dumps(business_data, indent = 3))
-print(business_data)
+# print(business_data)
+
+
+
+
+# r_dtypes = {"stars": np.float16, 
+#             "useful": np.int32, 
+#             "funny": np.int32,
+#             "cool": np.int32,
+#            }
+
+# with open("/Users/yensydney/Desktop/DSProject/yelp_dataset/copyyelp_academic_dataset_tip.json", "r") as f:
+#     df = pd.read_json(f, orient="records", lines=True, dtype=r_dtypes)
+#     for i in df['text']:
+#         print(i)
+
+for i in business_data['name']:
+    print(i)
