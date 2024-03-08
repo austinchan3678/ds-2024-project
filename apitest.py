@@ -57,7 +57,7 @@ business_data = response.json()
 
 # print the response
 #print(json.dumps(business_data, indent = 3))
-# print(business_data)
+print(business_data)
 
 
 
@@ -72,6 +72,6 @@ business_data = response.json()
 #     df = pd.read_json(f, orient="records", lines=True, dtype=r_dtypes)
 #     for i in df['text']:
 #         print(i)
-
+print("test")
 for i in business_data['name']:
     print(i)
