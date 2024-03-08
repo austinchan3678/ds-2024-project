@@ -51,19 +51,12 @@ HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 
 # offset should be random number ? 
 PARAMETERS = {  'term': 'burrito',
-                'limit': 3,
+                'limit': 10,
                 'radius': 16093, # 10 miles
                 'location': 'Goleta',
                 'price': 1
             }
 
-
-PARAMETERS = {'term':'burrito',
-              'limit': 1,
-              'offset': 3,
-              'radius': 10000,
-              'location': 'San Diego',
-              'price': 1}
 
 # Make a request to the Yelp API
 response = requests.get(url = ENDPOINT,
@@ -75,7 +68,7 @@ business_data = response.json()
 
 # print the response
 #print(json.dumps(business_data, indent = 3))
-print(business_data)
+# print(business_data)
 
 
 
@@ -91,5 +84,5 @@ print(business_data)
 #     for i in df['text']:
 #         print(i)
 print("test")
-for i in business_data['name']:
-    print(i)
+for i in business_data['businesses']:
+    print(i['name'])
