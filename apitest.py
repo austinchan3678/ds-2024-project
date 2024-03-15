@@ -17,72 +17,52 @@ import pandas as pd
 import numpy as np
 import pandas as pd
 
-# Define a business ID
-business_id = '4AErMBEoNzbk7Q8g45kKaQ'
-unix_time = 1546047836
-
 # Define my API Key, My Endpoint, and My Header
 API_KEY = '1LmNDpXKm1aNSwK2HCThD4C5v_cQtVxpEio3smS4i5G4-hHbI1DQiFU6Ysa6_ymVvpKIkTCNCGHT1mHKDMGyLh1GHhWklAlFTGBtBx6tm8F8BlNow6F-Z9pEmMrOZXYx'
 
 ENDPOINT = 'https://api.yelp.com/v3/businesses/search'
 HEADERS = {'Authorization': 'bearer %s' % API_KEY}
 
-# Define my parameters of the search
-# BUSINESS SEARCH PARAMETERS - EXAMPLE
-# PARAMETERS = {'term': 'food',
-#              'limit': 50,
-#              'offset': 50,
-#              'radius': 10000,
-#              'location': 'San Diego'}
-
-# BUSINESS MATCH PARAMETERS - EXAMPLE
-#PARAMETERS = {'name': 'Peets Coffee & Tea',
-#              'address1': '7845 Highland Village Pl',
-#              'city': 'San Diego',
-#              'state': 'CA',
-#              'country': 'US'}
-
-# PARAMETERS = {'name': ''
-#                 'term':'pizza',
-#               'limit': 2,
-#               'offset': 3,
-#               'radius': 10000,
-#               'location': 'San Diego'}
-
-# offset should be random number ? 
-PARAMETERS = {  'term': 'burrito',
-                'limit': 10,
-                'radius': 16093, # 10 miles
-                'location': 'Goleta',
-                'price': 1
+def search(term, limit, offset, location, price):
+    PARAMETERS = {'term': term,
+                'limit': limit,
+                'offset': offset,
+                'radius': 16093, # 10 miles already set
+                'location': location,
+                'price': price
             }
 
 
-# Make a request to the Yelp API
-response = requests.get(url = ENDPOINT,
-                        params = PARAMETERS,
-                        headers = HEADERS)
+    # Make a request to the Yelp API
+    response = requests.get(url = ENDPOINT,
+                            params = PARAMETERS,
+                            headers = HEADERS)
 
-# Conver the JSON String
-business_data = response.json()
+    # Conver the JSON String
+    business_data = response.json()
 
-# print the response
-#print(json.dumps(business_data, indent = 3))
-# print(business_data)
+    for i in business_data['businesses']:
+        print(i['name'])
+
+print("What type of food or restaurant do you want? ")
+userTerm = input()
+print("How many restaurant suggestions would you like? ")
+userLimit = int(input())
+print("What location would you like? ")
+userLocation = input()
+print("How many price signs? 1, 2, 3, or 4? ")
+userPrice = int(input())
+userOffset = 0
+
+search(userTerm, userLimit, userOffset, userLocation, userPrice)
 
 
+print("Type 's' to see more or any other key to quit")
+inputKey = input()
 
-
-# r_dtypes = {"stars": np.float16, 
-#             "useful": np.int32, 
-#             "funny": np.int32,
-#             "cool": np.int32,
-#            }
-
-# with open("/Users/yensydney/Desktop/DSProject/yelp_dataset/copyyelp_academic_dataset_tip.json", "r") as f:
-#     df = pd.read_json(f, orient="records", lines=True, dtype=r_dtypes)
-#     for i in df['text']:
-#         print(i)
-print("test")
-for i in business_data['businesses']:
-    print(i['name'])
+while (inputKey == 's'):
+    # userLimit += 3
+    userOffset += 3
+    search(userTerm, userLimit, userOffset, userLocation, userPrice)
+    print("Type 's' to see more or any other key to quit")
+    inputKey = input()
